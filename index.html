@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy Valentine's Day, Maris 💕</title>
+
+<style>
+body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:black; /* dark outer background */
+    font-family:'Segoe UI',sans-serif;
+    overflow:hidden;
+}
+
+/* DARK OVERLAY */
+body::before{
+    content:"";
+    position:fixed;
+    top:0;
+    left:0;
+    width:100vw;
+    height:100vh;
+    background:rgba(0,0,0,0.35);
+    z-index:-1;
+}
+
+/* CARD WITH PINK BACKGROUND */
+.card{
+    background:#ff99cc; /* pink background */
+    padding:50px;
+    border-radius:25px;
+    text-align:center;
+    color:white;
+    max-width:650px;
+    box-shadow:0 20px 40px rgba(0,0,0,0.4);
+    cursor:pointer;
+    backdrop-filter:blur(12px);
+}
+
+h1{font-size:40px}
+
+/* MESSAGE */
+#message{
+    display:none;
+    font-size:20px;
+    line-height:1.6;
+}
+
+/* FLOATING HEARTS */
+.floating-heart{
+    position:absolute;
+    bottom:-20px;
+    font-size:20px;
+    animation:floatUp 6s linear infinite;
+}
+@keyframes floatUp{
+    0%{transform:translateY(0)}
+    100%{transform:translateY(-110vh);opacity:0}
+}
+</style>
+</head>
+
+<body>
+
+<div class="card" id="card">
+<h1>Happy Valentine's Day, Maris 💘</h1>
+
+<p id="message">
+You are the most beautiful part of my life ❤️<br><br>
+Every day with you feels softer, brighter and meaningful.<br><br>
+I love you more than words can ever explain.
+</p>
+
+<small>Bae 💌</small>
+</div>
+
+<!-- MUSIC -->
+<audio id="song"
+src="https://cdn.pixabay.com/download/audio/2021/12/23/audio_f5e36f7806.mp3?filename=happy-love-11788.mp3"
+loop></audio>
+
+<script>
+const card=document.getElementById('card');
+const message=document.getElementById('message');
+const audio=document.getElementById('song');
+
+let opened=false;
+
+/* CLICK CARD */
+card.addEventListener('click',()=>{
+ if(!opened){
+   message.style.display='block';
+   opened=true;
+
+   /* PLAY MUSIC */
+   audio.volume=0;
+   audio.play().catch(()=>{});
+   let vol=0;
+   const fade=setInterval(()=>{
+     if(vol<0.5){vol+=0.02;audio.volume=vol;}
+     else clearInterval(fade);
+   },200);
+ }
+});
+
+/* FLOATING HEARTS */
+function createHeart(){
+ const heart=document.createElement("div");
+ heart.className="floating-heart";
+ heart.innerHTML="💖";
+ heart.style.left=Math.random()*100+"vw";
+ document.body.appendChild(heart);
+ setTimeout(()=>heart.remove(),6000);
+}
+setInterval(createHeart,500);
+</script>
+
+</body>
+</html>
